@@ -3,39 +3,15 @@ import './App.css';
 import _ from 'underscore'
 
 
-
-
-
-class Question extends React.Component {
-              state = { quest: "what is life?"};
-
-              handleClick = () => {
-                this.setState((prevState) => ({
-
-                }));
-              };
-
-              render() {
-                return (
-
-                  <div>
-                    <h1
-                      >{this.state.quest}
-                    </h1>
-                  </div>
-                );
-              }
-}
-
 class Button extends React.Component {
 							constructor(props){
 								super(props);
-								this.state = { counter: 1, bgColor:"red"};
-								this.testList = this.props.testList;
-								this.handleClick = this.handleClick.bind(this);
-								this.handler = this.props.handler;
-								this.changeHandler = this.changeHandler.bind(this);
-								this.answer = this.props.answer;
+								this.state={ counter: 1, bgColor:"red"};
+								this.testList=this.props.testList;
+								this.handleClick=this.handleClick.bind(this);
+								this.handler=this.props.handler;
+								this.changeHandler=this.changeHandler.bind(this);
+								this.answer=this.props.answer;
 							};
 
 
@@ -46,10 +22,9 @@ class Button extends React.Component {
 					    };
 
 
-							//handleClick = this.handleClick.bind(this);
+							//handleClick=this.handleClick.bind(this);
 
               handleClick () {
-								console.log("hello")
 
                 this.setState( (prevState) => ({
                   counter: prevState.counter + 1,
@@ -76,46 +51,25 @@ class Button extends React.Component {
 
 
 
-class Grid extends React.Component {
-  state = { counter: 1 };
-	testList = this.props.testList;
-
-
-
-  render() {
-    return (
-    	<div>
-      	<Question>
-        </Question>
-				<h1>{this.testList}</h1>
-  			<div id = "grid-container">
-        	<div class="action-container">
-            <Button handler = {this.handler}>
-            </Button>
-          </div>
-
-        </div>
-      </div>
-    );
-  }
-}
-
-
 class App extends Component {
-  state = { id: "flashCardApp", responseList: [], responseToAnswer: "Waiting"}
+  state={ id: "flashCardApp", responseList: [], responseToAnswer: "Waiting"}
   constructor(props) {
         super(props);
-				this.handler = this.handler.bind(this)
-				this.answers = ["water","fire","wind","wind"]
+				this.handler=this.handler.bind(this)
+				this.answers=["water","fire","wind","earth"]
 
     }
 
 	handler(UserResponse) {
-		var joined = this.state.responseList.concat(UserResponse);
-    this.setState(prevState => ({
-      responseList:joined
-    }))
-		this.checkAnswer();
+		//var joined=this.state.responseList.concat(UserResponse);
+    this.setState( (prevState) => ({
+      responseList:prevState.responseList.concat(UserResponse),
+      //prevState:joined
+    }),() =>{
+        this.checkAnswer();
+    })
+
+
   }
 
 	checkAnswer() {
@@ -130,9 +84,9 @@ class App extends Component {
 	}
 
 	answerFeedBackDisplay(rightAnswerList) {
-			var checked = "Wrong!";
+			var checked="Wrong!";
 			if(rightAnswerList){
-				checked = "Correct!";
+				checked="Correct!";
 			}
 
 			this.setState(prevState => ({
@@ -144,11 +98,16 @@ class App extends Component {
     return (
       <div className="App">
 				<h1>What are the five elements?</h1>
-        <Button handler = {this.handler} answer = "fire"/>
-				<Button handler = {this.handler} answer = "water"/>
-				<Button handler = {this.handler} answer = "wind"/>
-				<h1>{this.state.responseList}</h1>
-				<p>{this.state.responseList.length}</p>
+        <Button handler={this.handler} answer="fire"/>
+				<Button handler={this.handler} answer="water"/>
+				<Button handler={this.handler} answer="wind"/>
+        <Button handler={this.handler} answer="earth"/>
+
+				<p>{this.state.responseList}</p>
+
+        <p>{this.state.responseList.length}</p>
+        <p>{this.answers}</p>
+        <p>{this.answers.length}</p>
 				<p>{this.state.responseToAnswer}</p>
 
       </div>
